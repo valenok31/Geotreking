@@ -1,43 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import s from './App.module.css'
+import {Route, Routes} from 'react-router-dom';
+import React from "react";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import Geotreking from "./components/Geotreking/Geotreking"
 
-function App() {
-    let latitude;
-    let longitude;
+class App extends React.Component {
 
-    if ("geolocation" in navigator) {
-        /* местоположение доступно */
-        console.log(true)
-        console.log(navigator.geolocation)
-        navigator.geolocation.getCurrentPosition(function (position) {
-            console.log(position.coords.latitude, position.coords.longitude);
-            latitude = position.coords.latitude;
-            longitude = position.coords.longitude;
+    render() {
+        return (<div className={s.app__container}>
 
-
-        });
-    } else {
-        /* местоположение НЕ доступно */
-        console.log(false)
-        console.log(navigator.geolocation)
+                <div>
+                    <Routes>
+                        <Route path='/' element={<Geotreking/>}/>
+                    </Routes>
+                </div>
+            </div>
+        )
     }
-
-    return (
-        <div className="App">
-            Geotreking
-
-            <Geo />
-
-
-        </div>
-    );
 }
 
-export default App;
+let mapStateToProps = (state) => ({
+    getSettings: state.geo_reducer.settings,
+});
 
-function Geo (){
-    return <>
-
-
-    </>
-}
+export default compose(
+    connect(mapStateToProps, {}))
+(App);
