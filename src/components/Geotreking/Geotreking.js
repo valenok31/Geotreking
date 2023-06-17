@@ -8,8 +8,6 @@ class Geotreking extends React.Component {
 
     componentDidMount() {
         if ("geolocation" in navigator) {
-            debugger;
-            /* местоположение доступно */
             console.log(true)
             //console.log(navigator?.geolocation)
             navigator.geolocation.getCurrentPosition(function (position) {
