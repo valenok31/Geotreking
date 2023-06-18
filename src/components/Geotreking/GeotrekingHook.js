@@ -13,8 +13,9 @@ function GeotrekingHook(props) {
         if ("geolocation" in navigator) {
             let setGeoProps = props.setGeo;
             //console.log(navigator?.geolocation)
-            navigator.geolocation.getCurrentPosition(function (position) {
-                //console.log(position.coords.latitude, position.coords.longitude);
+           // navigator.geolocation.getCurrentPosition(function (position) {
+            navigator.geolocation.watchPosition(function (position) {
+                console.log(true);
                 setGeoProps({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
@@ -22,11 +23,6 @@ function GeotrekingHook(props) {
             });
         } else {
             console.log(false)
-            /*                setGeoProps({
-                                latitude: 33,
-                                longitude: 11,
-                            })*/
-            //console.log(navigator.geolocation)
         }
 
 

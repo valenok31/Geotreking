@@ -17,11 +17,8 @@ export default function Canvas(props) {
             return <div className={s.point} style={{top: top - 5 + 'px', left: left - 5 + 'px'}}></div>
         }
         let width = Math.sqrt((top - topPrevious) ** 2 + (left - leftPrevious) ** 2);
-        let widthHome = Math.sqrt((0 - top) ** 2 + (0 - left) ** 2);
         let reg = (y > 0 ? 90 : 270);
         let rotation = reg - (Math.atan(x / y) * 180 / Math.PI);
-        let rotationHome = reg - (Math.atan(-left / -top) * 180 / Math.PI);
-        console.log(Math.atan(x / y))
         return <>
             <div className={s.point} style={{top: top - 5 + 'px', left: left - 5 + 'px'}}></div>
             <div className={s.track} style={{
@@ -30,7 +27,6 @@ export default function Canvas(props) {
                 width: width,
                 transform: `rotate(${rotation}deg)`
             }}></div>
-
         </>
 
     });
