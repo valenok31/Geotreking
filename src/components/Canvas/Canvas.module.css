@@ -1,0 +1,20 @@
+.canvas{
+    display: block;
+    position: absolute;
+    top:0px;
+    left: 300px;
+    width: 500px;
+    height: 500px;
+    background-color: gray;
+}
+
+.point{
+    display: block;
+    position: inherit;
+    top:0px;
+    left: 0px;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: red;
+}

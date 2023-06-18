@@ -4,6 +4,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import Geotreking from "./components/Geotreking/Geotreking"
+import GeotrekingHook from "./components/Geotreking/GeotrekingHook";
 
 class App extends React.Component {
 
@@ -12,7 +13,7 @@ class App extends React.Component {
 
                 <div>
                     <Routes>
-                        <Route path='/' element={<Geotreking/>}/>
+                        <Route path='/' element={<GeotrekingHook/>}/>
                     </Routes>
                 </div>
             </div>

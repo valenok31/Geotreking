@@ -3,6 +3,10 @@
 const SET_GEO = 'SET_GEO';
 
 const initialState = {
+    coords:[{
+        latitude: 53.4258,
+        longitude: 83.9368,
+    }],
     latitude: 53,
     longitude: 83,
 };
@@ -12,6 +16,7 @@ const exchange_reducer = (state = initialState, action) => {
         case SET_GEO:
             return {
                 ...state,
+                coords: [...state.coords, action.geo],
                 latitude: action.geo.latitude,
                 longitude: action.geo.longitude,
             }
