@@ -18,3 +18,15 @@
     border-radius: 10px;
     background-color: red;
 }
+
+.track{
+    display: block;
+    position: inherit;
+    top:0px;
+    left: 0px;
+    width: 100px;
+    height: 1px;
+    border-radius: 10px;
+    background-color: #07003c;
+    transform-origin: top left;
+}
