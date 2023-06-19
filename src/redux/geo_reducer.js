@@ -2,17 +2,14 @@ const SET_GEO = 'SET_GEO';
 
 const initialState = {
     coords: [
-        {
-            latitude: 53.4258,
-            longitude: 83.9368,
-        },
+
         {
             latitude: 53.4259274,
             longitude: 83.9368934
         }
     ],
-    latitude: 53,
-    longitude: 83,
+    latitude: 53.4259274,
+    longitude: 83.9368934
 };
 
 const exchange_reducer = (state = initialState, action) => {
