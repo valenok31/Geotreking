@@ -16,16 +16,22 @@ function GeotrekingHook(props) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 //navigator.geolocation.watchPosition(function (position) {
                 //console.log(getGeoProps);
-                if (props.getCoords.length === 0) {
+                //let equal = position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude;
+                //console.log(equal)
+
+                if (props.getCoords.length === 0 || position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude) {
+                    console.log(position.coords.accuracy)
                     setGeoProps({
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude,
+                        accuracy: position.coords.accuracy,
                     });
                 } else {
                     if (position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude) {
                         setGeoProps({
                             latitude: position.coords.latitude,
                             longitude: position.coords.longitude,
+                            accuracy: position.coords.accuracy,
                         });
                     }
                 }

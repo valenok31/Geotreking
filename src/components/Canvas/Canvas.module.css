@@ -17,9 +17,19 @@
     width: 10px;
     height: 10px;
     border-radius: 10px;
-    background-color: red;
+    background-color: #5eff00;
 }
 
+.endPoint{
+    display: block;
+    position: inherit;
+    top:0px;
+    left: 0px;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: red;
+}
 
 .track{
     display: block;
@@ -33,6 +43,20 @@
     transform-origin: top left;
     text-align: center;
 }
+
+.accuracy{
+    display: block;
+    position: inherit;
+    top:0px;
+    left: 0px;
+    width: 30px;
+    height: 30px;
+    border-radius: 1000px;
+    border: rgb(0, 74, 185) solid 2px;
+    background-color: rgba(0, 102, 255, 0.18);
+}
+
+
 
 button{
     width: 100px;
