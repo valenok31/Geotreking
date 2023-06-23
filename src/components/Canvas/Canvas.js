@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import s from './Canvas.module.css'
 import {latlng2distance} from "../accessoryFunctions/latlng2distance";
+import Point from "../Point/Point";
 
 export default function Canvas(props) {
     let canvasWidth = 100;
@@ -27,15 +28,12 @@ export default function Canvas(props) {
 
         console.log(props.getCoords);
         let canvasArr = props.getCoords.map((point, index, arrPoints) => {
+            let cssEndPoint = s.point;
             let top = -(point.latitude - startLat) * scale;
             let left = (point.longitude - startLon) * scale;
 
             if (index === 0) {
-                return <div className={s.point} style={{
-                    top: `calc(${top - 5}px + ${canvasHeight / 2}vh)`,
-                    left: `calc(${left - 5}px + ${canvasWidth / 2}vw)`,
-                }}>
-                </div>
+                return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth} cssEndPoint={cssEndPoint}/>
             }
             let topPrevious = -(arrPoints[index - 1].latitude - startLat) * scale;
             let leftPrevious = (arrPoints[index - 1].longitude - startLon) * scale;
@@ -43,11 +41,7 @@ export default function Canvas(props) {
             let y = (top - topPrevious);
 
             if (x === 0 || y === 0) {
-                return <div className={s.point} style={{
-                    top: `calc(${top - 5}px + ${canvasHeight / 2}vh)`,
-                    left: `calc(${left - 5}px + ${canvasWidth / 2}vw)`,
-                }}>
-                </div>
+                return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth} cssEndPoint={cssEndPoint}/>
             }
             let lat1 = arrPoints[index - 1].latitude;
             let long1 = arrPoints[index - 1].longitude;
@@ -59,7 +53,7 @@ export default function Canvas(props) {
             let reg = (y > 0 ? 90 : 270);
             let rotation = reg - (Math.atan(x / y) * 180 / Math.PI);
             let endTrack = <></>
-            let cssEndPoint = s.point;
+
 
             if (index === arrPoints.length - 1) {
                 cssEndPoint = s.endPoint;
@@ -99,6 +93,7 @@ export default function Canvas(props) {
                          left: `calc(${left - 5}px + ${canvasWidth / 2}vw)`,
                      }}>
                 </div>
+                <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth} cssEndPoint={cssEndPoint}/>
                 <div className={s.track} style={{
                     top: `calc(${canvasHeight / 2}vh + ${topPrevious}px)`,
                     left: `calc(${canvasWidth / 2}vw + ${leftPrevious}px)`,
