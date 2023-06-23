@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import s from './Canvas.module.css'
 import {latlng2distance} from "../accessoryFunctions/latlng2distance";
 import Point from "../Point/Point";
+import Track from "../Track/Track";
 
 export default function Canvas(props) {
     let canvasWidth = 100;
@@ -33,7 +34,8 @@ export default function Canvas(props) {
             let left = (point.longitude - startLon) * scale;
 
             if (index === 0) {
-                return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth} cssEndPoint={cssEndPoint}/>
+                return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth}
+                              cssEndPoint={cssEndPoint}/>
             }
             let topPrevious = -(arrPoints[index - 1].latitude - startLat) * scale;
             let leftPrevious = (arrPoints[index - 1].longitude - startLon) * scale;
@@ -41,14 +43,15 @@ export default function Canvas(props) {
             let y = (top - topPrevious);
 
             if (x === 0 || y === 0) {
-                return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth} cssEndPoint={cssEndPoint}/>
+                return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth}
+                              cssEndPoint={cssEndPoint}/>
             }
             let lat1 = arrPoints[index - 1].latitude;
             let long1 = arrPoints[index - 1].longitude;
             let lat2 = point.latitude;
             let long2 = point.longitude;
             let distance = latlng2distance(lat1, long1, lat2, long2)
-           // distF(distance);
+            // distF(distance);
             let width = Math.sqrt((top - topPrevious) ** 2 + (left - leftPrevious) ** 2);
             let reg = (y > 0 ? 90 : 270);
             let rotation = reg - (Math.atan(x / y) * 180 / Math.PI);
@@ -65,42 +68,30 @@ export default function Canvas(props) {
                 let rotationHome = regH - (Math.atan(leftH / topH) * 180 / Math.PI);
                 let accuracy = props.getCoords.at(-1).accuracy;
 
-                endTrack = <><div className={s.track} style={{
-                    top: `calc(${topH}px + ${canvasHeight / 2}vh)`,
-                    left: `calc(${leftH}px + ${canvasWidth / 2}vw)`,
-                    width: widthHome,
-                    transform: `rotate(${rotationHome}deg)`,
-                    //!!!!!!!!!!
-                    display: 'none', // !!!!!!!!
-                }}>{distance}м
-                </div>
+                endTrack = <>
+{/*                    <Track top={topH} left={leftH}
+                           canvasHeight={canvasHeight} canvasWidth={canvasWidth}
+                           width={widthHome} rotation={rotationHome}
+                           distance={distance}/>*/}
                     <div className={s.accuracy} style={{
-                        top: `calc(${top -2- accuracy*scale*10/2000000}px + ${canvasHeight / 2}vh)`,
-                        left: `calc(${left -2- accuracy*scale*10/2000000}px + ${canvasWidth / 2}vw)`,
-                        width: `${accuracy*scale*10/1000000}px`,
-                        height: `${accuracy*scale*10/1000000}px`,
+                        top: `calc(${top - 2 - accuracy * scale * 10 / 2000000}px + ${canvasHeight / 2}vh)`,
+                        left: `calc(${left - 2 - accuracy * scale * 10 / 2000000}px + ${canvasWidth / 2}vw)`,
+                        width: `${accuracy * scale * 10 / 1000000}px`,
+                        height: `${accuracy * scale * 10 / 1000000}px`,
                     }}>
 
                     </div>
-                    </>
+                </>
             }
 
 
             return <>
-                <div className={cssEndPoint}
-                     style={{
-                         top: `calc(${top - 5}px + ${canvasHeight / 2}vh)`,
-                         left: `calc(${left - 5}px + ${canvasWidth / 2}vw)`,
-                     }}>
-                </div>
-                <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth} cssEndPoint={cssEndPoint}/>
-                <div className={s.track} style={{
-                    top: `calc(${canvasHeight / 2}vh + ${topPrevious}px)`,
-                    left: `calc(${canvasWidth / 2}vw + ${leftPrevious}px)`,
-                    width: width,
-                    transform: `rotate(${rotation}deg)`
-                }}>{distance}м
-                </div>
+                <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth}
+                       cssEndPoint={cssEndPoint}/>
+                <Track top={topPrevious} left={leftPrevious}
+                       canvasHeight={canvasHeight} canvasWidth={canvasWidth}
+                       width={width} rotation={rotation}
+                       distance={distance}/>
                 {endTrack}
             </>
         });
@@ -115,12 +106,16 @@ export default function Canvas(props) {
                 height: canvasHeight + 'vh',
             }}>
                 {canvasArr}
-                <div className={s.track} style={{
+{/*                <div className={s.track} style={{
                     top: `90vh`,
                     left: `calc(50vw - 250px)`,
                     width: 500,
-                }}>{latlng2distance(0, 0, 0, 500/scale)}м
-                </div>
+                }}>{latlng2distance(0, 0, 0, 500 / scale)}м
+                </div>*/}
+                <Track top='0' left='-250'
+                       canvasHeight='180' canvasWidth='100'
+                       width='500px' rotation='0'
+                       distance={latlng2distance(0, 0, 0, 500 / scale)}/>
             </div>
         </>
     }
