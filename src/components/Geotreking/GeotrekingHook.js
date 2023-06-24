@@ -19,23 +19,23 @@ function GeotrekingHook(props) {
                 //let equal = position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude;
                 //console.log(equal)
 
-                if (props.getCoords.length === 0 || position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude) {
-                    console.log(position.coords.accuracy)
-                    setGeoProps({
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                        accuracy: position.coords.accuracy,
-                    });
-                } else {
-                    if (position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude) {
-                        setGeoProps({
-                            latitude: position.coords.latitude,
-                            longitude: position.coords.longitude,
-                            accuracy: position.coords.accuracy,
-                        });
-                    }
-                }
 
+                        if (props.getCoords.length != 0 || position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude) {
+                            console.log(position.coords.accuracy)
+                            setGeoProps({
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                                accuracy: position.coords.accuracy,
+                            });
+                        } else {
+                            if (position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude) {
+                                setGeoProps({
+                                    latitude: position.coords.latitude,
+                                    longitude: position.coords.longitude,
+                                    accuracy: position.coords.accuracy,
+                                });
+                            }
+                        }
 
             });
         } else {
@@ -65,8 +65,6 @@ function GeotrekingHook(props) {
 }
 
 let mapStateToProps = (state) => ({
-    getLatitude: state.geo_reducer.latitude,
-    getLongitude: state.geo_reducer.longitude,
     getCoords: state.geo_reducer.coords,
 
 });

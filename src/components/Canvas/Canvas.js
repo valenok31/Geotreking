@@ -23,22 +23,27 @@ export default function Canvas(props) {
         setDist(a => a + distance);
     }
 
-    if (props.getCoords) {
-        let startLat = props.getCoords[0].latitude;
-        let startLon = props.getCoords[0].longitude;
-
+    if (props.getCoords.length!=0) {
         console.log(props.getCoords);
         let canvasArr = props.getCoords.map((point, index, arrPoints) => {
             let cssEndPoint = s.point;
-            let top = -(point.latitude - startLat) * scale;
-            let left = (point.longitude - startLon) * scale;
+            let startLat = arrPoints[0].latitude;
+            let startLon = arrPoints[0].longitude;
+            let previousLat = arrPoints[index - 1].latitude;
+            let previousLon = arrPoints[index - 1].longitude;
+            let currentLat = point.latitude;
+            let currentLon = point.longitude;
+
+
+            let top = -(currentLat - startLat) * scale;
+            let left = (currentLon - startLon) * scale;
 
             if (index === 0) {
                 return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth}
                               cssEndPoint={cssEndPoint}/>
             }
-            let topPrevious = -(arrPoints[index - 1].latitude - startLat) * scale;
-            let leftPrevious = (arrPoints[index - 1].longitude - startLon) * scale;
+            let topPrevious = -(previousLat - startLat) * scale;
+            let leftPrevious = (previousLon - startLon) * scale;
             let x = (left - leftPrevious);
             let y = (top - topPrevious);
 
@@ -46,12 +51,8 @@ export default function Canvas(props) {
                 return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth}
                               cssEndPoint={cssEndPoint}/>
             }
-            let lat1 = arrPoints[index - 1].latitude;
-            let long1 = arrPoints[index - 1].longitude;
-            let lat2 = point.latitude;
-            let long2 = point.longitude;
-            let distance = latlng2distance(lat1, long1, lat2, long2)
-            // distF(distance);
+
+            let distance = latlng2distance(previousLat, previousLon, currentLat, currentLon)
             let width = Math.sqrt((top - topPrevious) ** 2 + (left - leftPrevious) ** 2);
             let reg = (y > 0 ? 90 : 270);
             let rotation = reg - (Math.atan(x / y) * 180 / Math.PI);
@@ -115,7 +116,7 @@ export default function Canvas(props) {
                 <Track top='0' left='-250'
                        canvasHeight='180' canvasWidth='100'
                        width='500px' rotation='0'
-                       distance={latlng2distance(0, 0, 0, 500 / scale)}/>
+                       distance={latlng2distance(0, 0, 0, 300 / scale)}/>
             </div>
         </>
     }
