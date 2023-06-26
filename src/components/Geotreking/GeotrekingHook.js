@@ -12,7 +12,7 @@ function GeotrekingHook(props) {
         if ("geolocation" in navigator) {
             let setGeoProps = props.setGeo;
             //let getGeoProps = props.getCoords;
-            console.log(navigator?.geolocation)
+            //console.log(navigator?.geolocation)
             navigator.geolocation.getCurrentPosition(function (position) {
                 //navigator.geolocation.watchPosition(function (position) {
                 //console.log(getGeoProps);
@@ -20,8 +20,8 @@ function GeotrekingHook(props) {
                 //console.log(equal)
 
 
-                        if (props.getCoords.length != 0 || position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude) {
-                            console.log(position.coords.accuracy)
+                        if (props.getCoords.length === 0) {
+                            //console.log(position.coords.accuracy)
                             setGeoProps({
                                 latitude: position.coords.latitude,
                                 longitude: position.coords.longitude,
@@ -54,11 +54,12 @@ function GeotrekingHook(props) {
         }*/
 
     if (props.getCoords.length != 0) {
-        let endPoint = props?.getCoords?.length - 1
+
+        let endPoint = props.getCoords.length
         return <>
             <Canvas {...props}/>
-            <div>Latitude: {props?.getCoords[endPoint].latitude}</div>
-            <div>Longitude: {props?.getCoords[endPoint].longitude}</div>
+            <div>Latitude: {props.getCoords[props.getCoords.length-1].latitude}</div>
+            <div>Longitude: {props.getCoords[props.getCoords.length-1].longitude}</div>
             <button onClick={() => getCurrentPosition(props)}>Обновить геоданные</button>
         </>
     }

@@ -23,14 +23,14 @@ export default function Canvas(props) {
         setDist(a => a + distance);
     }
 
-    if (props.getCoords.length!=0) {
-        console.log(props.getCoords);
+    //if (props.getCoords.length!=0) {
+    if (true) {
+        //console.log(props.getCoords);
         let canvasArr = props.getCoords.map((point, index, arrPoints) => {
+
             let cssEndPoint = s.point;
             let startLat = arrPoints[0].latitude;
             let startLon = arrPoints[0].longitude;
-            let previousLat = arrPoints[index - 1].latitude;
-            let previousLon = arrPoints[index - 1].longitude;
             let currentLat = point.latitude;
             let currentLon = point.longitude;
 
@@ -42,6 +42,9 @@ export default function Canvas(props) {
                 return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth}
                               cssEndPoint={cssEndPoint}/>
             }
+
+            let previousLat = arrPoints[index - 1].latitude;
+            let previousLon = arrPoints[index - 1].longitude;
             let topPrevious = -(previousLat - startLat) * scale;
             let leftPrevious = (previousLon - startLon) * scale;
             let x = (left - leftPrevious);
