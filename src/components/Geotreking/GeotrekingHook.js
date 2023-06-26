@@ -12,7 +12,7 @@ function GeotrekingHook(props) {
         if ("geolocation" in navigator) {
             let setGeoProps = props.setGeo;
             //let getGeoProps = props.getCoords;
-            //console.log(navigator?.geolocation)
+            console.log(navigator?.geolocation)
             navigator.geolocation.getCurrentPosition(function (position) {
                 //navigator.geolocation.watchPosition(function (position) {
                 //console.log(getGeoProps);
