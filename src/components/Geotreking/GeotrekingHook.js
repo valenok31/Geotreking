@@ -11,55 +11,38 @@ function GeotrekingHook(props) {
     function getCurrentPosition(props) {
         if ("geolocation" in navigator) {
             let setGeoProps = props.setGeo;
-            //let getGeoProps = props.getCoords;
-            //console.log(navigator?.geolocation)
-            navigator.geolocation.getCurrentPosition(function (position) {
-                //navigator.geolocation.watchPosition(function (position) {
-                //console.log(getGeoProps);
-                //let equal = position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude;
-                //console.log(equal)
 
+            //navigator.geolocation.getCurrentPosition(function (position) {
+            navigator.geolocation.watchPosition(function (position) {
 
-                        if (props.getCoords.length === 0) {
-                            //console.log(position.coords.accuracy)
-                            setGeoProps({
-                                latitude: position.coords.latitude,
-                                longitude: position.coords.longitude,
-                                accuracy: position.coords.accuracy,
-                            });
-                        } else {
-                            if (position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude) {
-                                setGeoProps({
-                                    latitude: position.coords.latitude,
-                                    longitude: position.coords.longitude,
-                                    accuracy: position.coords.accuracy,
-                                });
-                            }
-                        }
-
+                if (props.getCoords.length === 0) {
+                    setGeoProps({
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                        accuracy: position.coords.accuracy,
+                    });
+                } else {
+                    console.log('else')
+                    if (position.coords.latitude != props.getCoords.at(-1).latitude && position.coords.longitude != props.getCoords.at(-1).longitude) {
+                        console.log('if')
+                        setGeoProps({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                            accuracy: position.coords.accuracy,
+                        });
+                    }
+                }
             });
         } else {
             console.log(false)
         }
     }
 
-    /*    if(props.getCoords){
-            let endPoint = props.getCoords.length - 1
-        return <>
-            <div>Latitude: {props?.getCoords[endPoint].latitude}</div>
-            <div>Longitude: {props?.getCoords[endPoint].longitude}</div>
-            <button onClick={() => getCurrentPosition(props)}>Обновить геоданные</button>
-            <Canvas {...props}/>
-        </>
-        }*/
-
     if (props.getCoords.length != 0) {
-
-        let endPoint = props.getCoords.length
         return <>
             <Canvas {...props}/>
-            <div>Latitude: {props.getCoords[props.getCoords.length-1].latitude}</div>
-            <div>Longitude: {props.getCoords[props.getCoords.length-1].longitude}</div>
+            <div>Latitude: {props.getCoords.at(-1).latitude}</div>
+            <div>Longitude: {props.getCoords.at(-1).longitude}</div>
             <button onClick={() => getCurrentPosition(props)}>Обновить геоданные</button>
         </>
     }

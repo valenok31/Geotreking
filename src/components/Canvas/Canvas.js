@@ -33,7 +33,8 @@ export default function Canvas(props) {
             let startLon = arrPoints[0].longitude;
             let currentLat = point.latitude;
             let currentLon = point.longitude;
-
+            let endLat = arrPoints.at(-1).latitude;
+            let endLon = arrPoints.at(-1).longitude;
 
             let top = -(currentLat - startLat) * scale;
             let left = (currentLon - startLon) * scale;
@@ -65,15 +66,16 @@ export default function Canvas(props) {
             if (index === arrPoints.length - 1) {
                 cssEndPoint = s.endPoint;
 
-                let topH = -((props.getCoords.at(-1).latitude - startLat) * scale)
-                let leftH = ((props.getCoords.at(-1).longitude - startLon) * scale)
+                let topH = -((endLat - startLat) * scale)
+                let leftH = ((endLon - startLon) * scale)
                 let widthHome = Math.sqrt(topH ** 2 + leftH ** 2);
                 let regH = (-topH > 0 ? 90 : 270);
                 let rotationHome = regH - (Math.atan(leftH / topH) * 180 / Math.PI);
                 let accuracy = props.getCoords.at(-1).accuracy;
 
+
                 endTrack = <>
-{/*                    <Track top={topH} left={leftH}
+                    {/*                    <Track top={topH} left={leftH}
                            canvasHeight={canvasHeight} canvasWidth={canvasWidth}
                            width={widthHome} rotation={rotationHome}
                            distance={distance}/>*/}
@@ -110,7 +112,7 @@ export default function Canvas(props) {
                 height: canvasHeight + 'vh',
             }}>
                 {canvasArr}
-{/*                <div className={s.track} style={{
+                {/*                <div className={s.track} style={{
                     top: `90vh`,
                     left: `calc(50vw - 250px)`,
                     width: 500,
