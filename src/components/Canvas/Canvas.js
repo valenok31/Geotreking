@@ -40,6 +40,7 @@ export default function Canvas(props) {
             let left = (currentLon - startLon) * scale;
 
             if (index === 0) {
+                cssEndPoint = s.startPoint;
                 return <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth}
                               cssEndPoint={cssEndPoint}/>
             }
@@ -62,7 +63,6 @@ export default function Canvas(props) {
             let rotation = reg - (Math.atan(x / y) * 180 / Math.PI);
             let endTrack = <></>
 
-
             if (index === arrPoints.length - 1) {
                 cssEndPoint = s.endPoint;
 
@@ -73,12 +73,11 @@ export default function Canvas(props) {
                 let rotationHome = regH - (Math.atan(leftH / topH) * 180 / Math.PI);
                 let accuracy = props.getCoords.at(-1).accuracy;
 
-
                 endTrack = <>
-                    {/*                    <Track top={topH} left={leftH}
+                    <Track top={topH} left={leftH}
                            canvasHeight={canvasHeight} canvasWidth={canvasWidth}
                            width={widthHome} rotation={rotationHome}
-                           distance={distance}/>*/}
+                           distance={distance}/>
                     <div className={s.accuracy} style={{
                         top: `calc(${top - 2 - accuracy * scale * 10 / 2000000}px + ${canvasHeight / 2}vh)`,
                         left: `calc(${left - 2 - accuracy * scale * 10 / 2000000}px + ${canvasWidth / 2}vw)`,
@@ -89,7 +88,6 @@ export default function Canvas(props) {
                     </div>
                 </>
             }
-
 
             return <>
                 <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth}
