@@ -104,7 +104,9 @@ export default function Canvas(props) {
             <button onClick={() => increase(props)}>+</button>
             {scale}
             <button onClick={() => reduce(props)}>-</button>
-            {dist}
+            <div>{dist}</div>
+            <div>Latitude: {props.getCoords.at(-1).latitude}</div>
+            <div>Longitude: {props.getCoords.at(-1).longitude}</div>
             <div className={s.canvas} style={{
                 width: canvasWidth + 'vw',
                 height: canvasHeight + 'vh',

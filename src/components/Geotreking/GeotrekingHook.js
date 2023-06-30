@@ -41,8 +41,8 @@ function GeotrekingHook(props) {
     if (props.getCoords.length != 0) {
         return <>
             <Canvas {...props}/>
-            <div>Latitude: {props.getCoords.at(-1).latitude}</div>
-            <div>Longitude: {props.getCoords.at(-1).longitude}</div>
+{/*            <div>Latitude: {props.getCoords.at(-1).latitude}</div>
+            <div>Longitude: {props.getCoords.at(-1).longitude}</div>*/}
             <button onClick={() => getCurrentPosition(props)}>Обновить геоданные</button>
         </>
     }
