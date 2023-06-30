@@ -9,7 +9,7 @@ export default function Canvas(props) {
     let canvasHeight = 100;
 
     const [scale, setScale] = useState(1000_000);
-    const [dist, setDist] = useState(0);
+
 
     function increase() {
         setScale(a => a * 2);
@@ -19,9 +19,7 @@ export default function Canvas(props) {
         setScale(a => a / 2);
     }
 
-    function distF(distance) {
-        setDist(a => a + distance);
-    }
+
 
     //if (props.getCoords.length!=0) {
     if (true) {
@@ -62,6 +60,7 @@ export default function Canvas(props) {
             let reg = (y > 0 ? 90 : 270);
             let rotation = reg - (Math.atan(x / y) * 180 / Math.PI);
             let endTrack = <></>
+
 
             if (index === arrPoints.length - 1) {
                 cssEndPoint = s.endPoint;
@@ -104,7 +103,7 @@ export default function Canvas(props) {
             <button onClick={() => increase(props)}>+</button>
             {scale}
             <button onClick={() => reduce(props)}>-</button>
-            <div>{dist}</div>
+            <div>{props.getCoords.at(-1).distance}</div>
             <div>Latitude: {props.getCoords.at(-1).latitude}</div>
             <div>Longitude: {props.getCoords.at(-1).longitude}</div>
             <div className={s.canvas} style={{
