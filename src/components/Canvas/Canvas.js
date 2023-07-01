@@ -20,11 +20,16 @@ export default function Canvas(props) {
     }
 
 
-
     //if (props.getCoords.length!=0) {
     if (true) {
         //console.log(props.getCoords);
         let canvasArr = props.getCoords.map((point, index, arrPoints) => {
+            let retee = arrPoints
+                .map(b => b.distance)
+                .reduce((a, b) => a + b);
+
+            console.log(retee);
+
 
             let cssEndPoint = s.point;
             let startLat = arrPoints[0].latitude;
@@ -73,10 +78,10 @@ export default function Canvas(props) {
                 let accuracy = props.getCoords.at(-1).accuracy;
 
                 endTrack = <>
-                    <Track top={topH} left={leftH}
+                    {/*                    <Track top={topH} left={leftH}
                            canvasHeight={canvasHeight} canvasWidth={canvasWidth}
                            width={widthHome} rotation={rotationHome}
-                           distance={distance}/>
+                           distance={distance}/>*/}
                     <div className={s.accuracy} style={{
                         top: `calc(${top - 2 - accuracy * scale * 10 / 2000000}px + ${canvasHeight / 2}vh)`,
                         left: `calc(${left - 2 - accuracy * scale * 10 / 2000000}px + ${canvasWidth / 2}vw)`,
@@ -87,7 +92,6 @@ export default function Canvas(props) {
                     </div>
                 </>
             }
-
             return <>
                 <Point top={top} left={left} canvasHeight={canvasHeight} canvasWidth={canvasWidth}
                        cssEndPoint={cssEndPoint}/>
@@ -103,7 +107,7 @@ export default function Canvas(props) {
             <button onClick={() => increase(props)}>+</button>
             {scale}
             <button onClick={() => reduce(props)}>-</button>
-            <div>{props.getCoords.at(-1).distance}</div>
+            <div>{props.dist}</div>
             <div>Latitude: {props.getCoords.at(-1).latitude}</div>
             <div>Longitude: {props.getCoords.at(-1).longitude}</div>
             <div className={s.canvas} style={{
